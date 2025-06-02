@@ -1,0 +1,7 @@
+
+2 types d'upgrade
+  - Addition; ajoute des Sheep
+  - Multiplication: Augmente les nombres de Wool par Sheep
+
+
+

@@ -1,0 +1,36 @@
+
+Nom: SheepIdle
+
+Principe: Avoir le plus de laine possible
+
+Ammélioration:
+Début avec 1 seul pathing, puis 2 qui mene vers 2 fin différentes, une mauvaise et une bonne.
+
+    1- Pathing Capitaliste/Productiviste
+    2- Pathing Soscialiste/Bien être
+
+
+Les deux sont incompatible, l'un donne des malus à l'autres.
+Il est possible de détruire/dé-apprender des améliorations. (pour tester est changer les pathing).
+
+
+
+
+1- Pathing Capitaliste/Productiviste
+
+Le principe est de produire le plus et de vendre le plus pour faire un max d'Argent.
+Réduit le gain Bonheur.
+Améliorations coûte de l'argent
+
+Fin: Auto-Déscruction de la planete, planete stérile, plsu possible de produire. Fin de la partie.
+
+
+
+2- Pathing Soscialiste/Bien être
+
+Le principe est d'avoir le plus de Bonheur possible dans notre société de mouton.
+Réduit le gain d'Argents
+Améliorations coûte du Bonheur.
+
+
+Fin: Pas de fin, juste un max de Bonheur infini.
