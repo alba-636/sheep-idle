@@ -1,5 +1,5 @@
-<script setup>
-import { ref } from 'vue'
+<script setup lang="ts">
+import UpgradeList from './Upgrades/UpgradeList.vue'
 import { useWoolCounterStore } from '@/stores/woolCounter.ts'
 import WoolHandler from '@/features/WoolHandler.ts'
 import UpgradeHandler from '@/features/UpgradeHandler.ts'
@@ -8,18 +8,15 @@ import FertilizerUpgrade from '@/features/upgrades/multiplications/FertilizerUpg
 
 const store = useWoolCounterStore()
 
-const sheepUpgrade = new SheepUpgrade(13n)
-const fertilizerUpgrade = new FertilizerUpgrade(6n)
-
-UpgradeHandler.instance.addUpgrade(sheepUpgrade)
-UpgradeHandler.instance.addUpgrade(fertilizerUpgrade)
+UpgradeHandler.instance.addUpgrade(new SheepUpgrade(1n), new FertilizerUpgrade(0n))
 
 WoolHandler.instance.start()
-
 </script>
 
 <template>
   <div>Hello, World!</div>
   <p>Wool Production: {{ store.woolProductionRate }}/seconds</p>
   <p>Wool: {{ store.woolCount }}</p>
+
+  <UpgradeList />
 </template>

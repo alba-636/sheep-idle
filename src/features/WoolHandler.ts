@@ -1,53 +1,52 @@
-import { useWoolCounterStore } from "@/stores/woolCounter";
+import { useWoolCounterStore } from '@/stores/woolCounter'
 
-
-function getCurrentTime (): number {
+function getCurrentTime(): number {
   return Number((Date.now() / 1000).toFixed(0))
 }
 
 class WoolHandler {
-  private static _instance: WoolHandler;
+  private static _instance: WoolHandler
 
-  private constructor () {
+  private constructor() {
     this.count = BigInt(0)
     this.productionRate = BigInt(1)
     this.lastProductionTime = getCurrentTime()
   }
 
-  public static get instance () {
+  public static get instance() {
     return WoolHandler._instance || (WoolHandler._instance = new WoolHandler())
   }
 
   count: bigint
   productionRate: bigint
   lastProductionTime: number
-  
+
   private updateInterval: number | null = null
-  
-  start () {
+
+  start() {
     this.startUpdateInterval()
   }
 
-  setProductionRate (rate: bigint) {
+  setProductionRate(rate: bigint) {
     this.productionRate = rate
     this.updateProductionRate()
   }
 
-  private startUpdateInterval () {
+  private startUpdateInterval() {
     this.clearUpdateInterval()
     this.updateInterval = setInterval(() => {
       this.computeNewWoolCount()
     }, 1000)
   }
 
-  private clearUpdateInterval () {
+  private clearUpdateInterval() {
     if (this.updateInterval !== null) {
       clearInterval(this.updateInterval)
       this.updateInterval = null
     }
   }
 
-  private computeNewWoolCount () {
+  private computeNewWoolCount() {
     const productionTime = getCurrentTime()
     const seconds = productionTime - this.lastProductionTime
     this.count += this.productionRate * BigInt(seconds)
@@ -55,12 +54,12 @@ class WoolHandler {
     this.updateCounter()
   }
 
-  private  updateCounter () {
+  private updateCounter() {
     const store = useWoolCounterStore()
     store.setWoolCount(this.count)
   }
 
-  private updateProductionRate () {
+  private updateProductionRate() {
     const store = useWoolCounterStore()
     store.setWoolProductionRate(this.productionRate)
   }
