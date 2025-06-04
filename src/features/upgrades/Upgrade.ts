@@ -33,7 +33,7 @@ class Upgrade {
   }
 
   getCost(): bigint {
-    return BigInt(this.initialCost) * BigInt(this.baseModificator) ** this.level
+    return (BigInt(this.initialCost) * BigInt(this.costMutiplicator * 1000) ** this.level) / 1000n
   }
 }
 
