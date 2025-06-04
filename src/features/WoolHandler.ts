@@ -32,6 +32,11 @@ class WoolHandler {
     this.updateProductionRate()
   }
 
+  removeWool(cost: bigint) {
+    this.count -= cost
+    this.updateCounter()
+  }
+
   private startUpdateInterval() {
     this.clearUpdateInterval()
     this.updateInterval = setInterval(() => {

@@ -30,6 +30,24 @@ class UpgradeHandler {
     this.computeModificators()
   }
 
+  tryBuyUpgrade(id: string) {
+    const upgrade = this.upgrades.find((upgrade) => upgrade.id === id)
+    if (!upgrade) return
+
+    const upgradeCost = upgrade.getCost()
+    const canBeBought = WoolHandler.instance.count >= upgradeCost
+    if (!canBeBought) return
+
+    WoolHandler.instance.removeWool(upgradeCost)
+
+    upgrade.level++
+
+    const store = useUpgradeStore()
+    store.updateUpgrade(upgrade)
+
+    this.computeModificators()
+  }
+
   private computeModificators() {
     const additionUpgrades = this.getUpgradesByType(UpgradeType.Addition)
     const multiplicationUpgrades = this.getUpgradesByType(UpgradeType.Multiplication)
