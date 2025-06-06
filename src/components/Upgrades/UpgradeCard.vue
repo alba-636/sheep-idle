@@ -14,26 +14,60 @@ const woolCounterStore = useWoolCounterStore()
 const canBeBought = computed(() => props.cost <= woolCounterStore.woolCount)
 
 function buyUpgrade() {
-  UpgradeHandler.instance.tryBuyUpgrade(props.id)
+  if (canBeBought.value) {
+    UpgradeHandler.instance.tryBuyUpgrade(props.id)
+  }
 }
 </script>
 
 <template>
-  <div class="upgrade_container">
-    <!-- TODO: Local from id -->
-    <div class="upgrade_name">{{ id }}</div>
+  <div class="upgrade_container" @click="buyUpgrade">
+    <!-- Upgrade Name -->
+    <div class="upgradeName_overlay">
+      <!-- TODO: Local from id -->
+      <div class="upgradeName_container">{{ id }}</div>
+    </div>
+
     <div class="upgrade_level">Level: {{ level }}</div>
     <div class="upgrade_cost">Cost: <BigIntDisplay :value="cost" /></div>
 
-    <button :disabled="!canBeBought" @click="buyUpgrade">Buy</button>
+    <div v-if="!canBeBought" class="disable_overlay" />
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .upgrade_container {
-  margin: 8px;
-  padding: 8px;
-  border: solid 1px black;
-  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid #000000;
+
+  position: relative;
+
+  .disable_overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: default;
+    background-color: #00000022;
+  }
+
+  .upgradeName_overlay {
+    width: 100%;
+    height: 30px;
+
+    display: flex;
+    justify-content: center;
+
+    .upgradeName_container {
+      padding: 4px;
+
+      border-left: solid 1px #000000;
+      border-bottom: solid 1px #000000;
+      border-right: solid 1px #000000;
+      border-bottom-left-radius: 16px;
+      border-bottom-right-radius: 16px;
+    }
+  }
 }
 </style>

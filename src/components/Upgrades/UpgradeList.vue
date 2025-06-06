@@ -6,7 +6,7 @@ const upgradeStore = useUpgradeStore()
 </script>
 
 <template>
-  <div class="upgrade-list_container">
+  <div class="upgradeList_container">
     <UpgradeCard
       v-for="upgrade in upgradeStore.upgrades"
       :key="upgrade.id"
@@ -16,3 +16,10 @@ const upgradeStore = useUpgradeStore()
     />
   </div>
 </template>
+
+<style scoped lang="scss">
+.upgradeList_container {
+  height: 100%;
+  overflow-y: auto;
+}
+</style>
