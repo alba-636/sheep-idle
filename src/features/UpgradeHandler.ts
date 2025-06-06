@@ -18,14 +18,13 @@ class UpgradeHandler {
 
   private upgrades: Upgrade[] = []
 
-  addUpgrade(...upgrades: Upgrade[]) {
+  setUpgrades(upgrades: Upgrade[]) {
     const store = useUpgradeStore()
 
-    for (const upgrade of upgrades) {
-      if (this.upgrades.some(({ id }) => upgrade.id === id)) return // Can onlw have 1 instance of each upgrade.
-      this.upgrades.push(upgrade)
-      store.addUpgrade(upgrade)
-    }
+    upgrades.sort((a, b) => (a.initialCost < b.initialCost ? -1 : 1))
+
+    this.upgrades = upgrades
+    store.setUpgrades(upgrades)
 
     this.computeModificators()
   }

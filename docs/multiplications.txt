@@ -8,7 +8,7 @@
 
 Multiplication:
 
-- eau
+- eau                         => .2
 - fouin
 - sciseau/tondeuse
 - fertisisant

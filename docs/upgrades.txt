@@ -8,11 +8,12 @@
 
 Addition:
 
-- mouton / sheep
-- ferme / farm
-- terrain / land
-
-
+- mouton / sheep      => 1
+- enclot / enclosure  => 10
+- ferme / farm        => 100
+- terrain / land      => 1_000
+- vallée / valley     => 10_000
+- plaine / plain      => 100_000
 
 
 

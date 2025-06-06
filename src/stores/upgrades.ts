@@ -11,17 +11,16 @@ type UpgradeType = {
 export const useUpgradeStore = defineStore('upgrades', () => {
   const upgrades = ref<UpgradeType[]>([])
 
-  function addUpgrade(upgrade: Upgrade) {
-    upgrades.value.push({
+  function setUpgrades(value: Upgrade[]) {
+    upgrades.value = value.map((upgrade) => ({
       id: upgrade.id,
       level: upgrade.level,
       cost: upgrade.getCost(),
-    })
+    }))
   }
 
   function updateUpgrade(upgrade: Upgrade) {
     const currentUpgrade = upgrades.value.find(({ id }) => upgrade.id === id)
-
     if (!currentUpgrade) return
 
     const newCost = upgrade.getCost()
@@ -32,7 +31,7 @@ export const useUpgradeStore = defineStore('upgrades', () => {
   return {
     upgrades,
 
-    addUpgrade,
+    setUpgrades,
     updateUpgrade,
   }
 })
