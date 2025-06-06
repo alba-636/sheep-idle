@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import UpgradeList from './Upgrades/UpgradeList.vue'
+import WoolCounter from '@/components/WoolCounter.vue'
 import { useWoolCounterStore } from '@/stores/woolCounter.ts'
 import WoolHandler from '@/features/WoolHandler.ts'
 import UpgradeHandler from '@/features/UpgradeHandler.ts'
@@ -16,7 +17,8 @@ WoolHandler.instance.start()
 <template>
   <div>Hello, World!</div>
   <p>Wool Production: {{ store.woolProductionRate }}/seconds</p>
-  <p>Wool: {{ store.woolCount }}</p>
+
+  <WoolCounter :count="store.woolCount" />
 
   <UpgradeList />
 </template>

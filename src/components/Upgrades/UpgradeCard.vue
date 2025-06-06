@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import BigIntDisplay from '@/components/helpers/BigIntDisplay.vue'
 import UpgradeHandler from '@/features/UpgradeHandler'
 import { useWoolCounterStore } from '@/stores/woolCounter'
 import { computed } from 'vue'
@@ -22,7 +23,7 @@ function buyUpgrade() {
     <!-- TODO: Local from id -->
     <div class="upgrade_name">{{ id }}</div>
     <div class="upgrade_level">Level: {{ level }}</div>
-    <div class="upgrade_cost">Cost: {{ cost }}</div>
+    <div class="upgrade_cost">Cost: <BigIntDisplay :value="cost" /></div>
 
     <button :disabled="!canBeBought" @click="buyUpgrade">Buy</button>
   </div>
