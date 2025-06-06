@@ -8,9 +8,9 @@
 
 Multiplication:
 
-- eau                         => .2
-- fouin
-- sciseau/tondeuse
-- fertisisant
-- 
+- eau / water                        => 1.2
+- blé / weat                         => 1.4
+- tondeuse / lawnmower               => 1.6
+- fertisisant / fertilizer           => 1.8
+- médicament / medication            => 2
 

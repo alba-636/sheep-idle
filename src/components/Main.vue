@@ -11,6 +11,10 @@ import FarmUpgrade from '@/features/upgrades/additions/FarmUpgrade'
 import LandUpgrade from '@/features/upgrades/additions/LandUpgrade'
 import ValleyUpgrade from '@/features/upgrades/additions/ValleyUpgrade'
 import PlainUpgrade from '@/features/upgrades/additions/PlainUpgrade'
+import WaterUpgrade from '@/features/upgrades/multiplications/WaterUpgrade'
+import WeatUpgrade from '@/features/upgrades/multiplications/WeatUpgrade'
+import LawnmowerUpgrade from '@/features/upgrades/multiplications/LawnmowerUpgrade'
+import MedicationUpgrade from '@/features/upgrades/multiplications/MedicationUpgrade'
 
 const store = useWoolCounterStore()
 
@@ -24,7 +28,11 @@ UpgradeHandler.instance.setUpgrades([
   new PlainUpgrade(),
 
   // Multiplication Upgrades
+  new WaterUpgrade(),
+  new WeatUpgrade(),
+  new LawnmowerUpgrade(),
   new FertilizerUpgrade(),
+  new MedicationUpgrade(),
 ])
 
 WoolHandler.instance.start()

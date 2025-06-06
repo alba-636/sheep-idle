@@ -6,7 +6,7 @@ enum UpgradeType {
 class Upgrade {
   id: string
   type: UpgradeType
-  baseModificator: bigint
+  baseModificator: number
   initialCost: number
   costMutiplicator: number
   level: bigint = BigInt(0)
@@ -14,7 +14,7 @@ class Upgrade {
   constructor(
     id: string,
     type: UpgradeType,
-    baseModificator: bigint,
+    baseModificator: number,
     initialCost: number,
     costMultiplicator: number,
     level?: bigint,
@@ -29,7 +29,7 @@ class Upgrade {
   }
 
   getModificator(): bigint {
-    return this.baseModificator * this.level
+    return (BigInt(this.baseModificator * 1000) * this.level) / 1000n
   }
 
   getCost(): bigint {
