@@ -10,7 +10,7 @@ const store = useWoolCounterStore()
     <div class="woolCounter_container">
       <BigIntDisplay :value="store.woolCount" animated />
       Wool
-      <p class="woolProductionRate">{{ store.woolProductionRate }} wool/s</p>
+      <p class="woolProductionRate"><BigIntDisplay :value="store.woolProductionRate" /> wool/s</p>
     </div>
   </div>
 </template>

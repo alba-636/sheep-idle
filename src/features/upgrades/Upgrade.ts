@@ -10,6 +10,7 @@ type UpgardeSave = {
 
 class Upgrade {
   id: string
+  order: number
   type: UpgradeType
   baseModificator: number
   initialCost: number
@@ -18,6 +19,7 @@ class Upgrade {
 
   constructor(
     id: string,
+    order: number,
     type: UpgradeType,
     baseModificator: number,
     initialCost: number,
@@ -25,9 +27,10 @@ class Upgrade {
     level?: bigint,
   ) {
     this.id = id
+    this.order = order
     this.type = type
     this.baseModificator = baseModificator
-    this.initialCost = initialCost
+    this.initialCost = order === 0 ? 5 : 5 * 20 ** order
     this.costMutiplicator = costMultiplicator
 
     this.level = level || this.level
@@ -41,7 +44,7 @@ class Upgrade {
     if (this.level === 0n) return BigInt(this.initialCost)
 
     return (
-      (BigInt(this.initialCost) * BigInt(this.costMutiplicator * 1000) ** this.level) /
+      (BigInt(this.initialCost) * BigInt(+(this.order + 1.2).toFixed(3) * 1000) ** this.level) /
       1000n ** this.level
     )
   }

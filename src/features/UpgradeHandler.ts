@@ -87,7 +87,7 @@ class UpgradeHandler {
   private setUpgrades(upgrades: Upgrade[]) {
     const store = useUpgradeStore()
 
-    upgrades.sort((a, b) => (a.initialCost < b.initialCost ? -1 : 1))
+    upgrades.sort((a, b) => (a.order < b.order ? -1 : 1))
 
     this.upgrades = upgrades
     store.setUpgrades(upgrades)

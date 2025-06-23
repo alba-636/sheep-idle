@@ -8,13 +8,22 @@
 
 Addition:
 
-- mouton / sheep      => 1
-- enclot / enclosure  => 10
-- ferme / farm        => 100
-- terrain / land      => 1_000
-- vallée / valley     => 10_000
-- plaine / plain      => 100_000
+- 0 mouton / sheep      => 1
+- 2 enclot / enclosure  => 10
+- 4 ferme / farm        => 100
+- 6 terrain / land      => 1_000
+- 8 vallée / valley     => 10_000
+- 10 plaine / plain      => 100_000
 
 
+
+
+Multiplication:
+
+- 1 eau / water                        => 1.2
+- 3 blé / weat                         => 1.4
+- 5 tondeuse / lawnmower               => 1.6
+- 7 fertisisant / fertilizer           => 1.8
+- 9 médicament / medication            => 2
 
 
