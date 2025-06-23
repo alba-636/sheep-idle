@@ -3,6 +3,11 @@ enum UpgradeType {
   Multiplication = 1,
 }
 
+type UpgardeSave = {
+  id: string
+  level: string
+}
+
 class Upgrade {
   id: string
   type: UpgradeType
@@ -40,8 +45,15 @@ class Upgrade {
       1000n ** this.level
     )
   }
+
+  getSave(): UpgardeSave {
+    return {
+      id: this.id,
+      level: this.level.toString(),
+    }
+  }
 }
 
+export type { UpgardeSave }
 export { UpgradeType }
-
 export default Upgrade

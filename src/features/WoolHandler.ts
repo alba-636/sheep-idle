@@ -1,4 +1,10 @@
 import { useWoolCounterStore } from '@/stores/woolCounter'
+import { parseBigInt } from './helper'
+
+type WoolHandlerSave = {
+  count: string
+  lastProductionTime: string
+}
 
 function getCurrentTime(): number {
   return Number((Date.now() / 1000).toFixed(0))
@@ -37,6 +43,19 @@ class WoolHandler {
     this.updateCounter()
   }
 
+  getSave(): WoolHandlerSave {
+    return {
+      count: this.count.toString(),
+      lastProductionTime: this.lastProductionTime.toString(),
+    }
+  }
+
+  loadSave(save: WoolHandlerSave) {
+    this.count = parseBigInt(save.count)
+    this.lastProductionTime = Number(save.lastProductionTime) || getCurrentTime()
+    this.computeNewWoolCount()
+  }
+
   private startUpdateInterval() {
     this.clearUpdateInterval()
     this.updateInterval = setInterval(() => {
@@ -70,4 +89,5 @@ class WoolHandler {
   }
 }
 
+export type { WoolHandlerSave }
 export default WoolHandler

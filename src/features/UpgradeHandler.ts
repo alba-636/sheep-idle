@@ -1,4 +1,16 @@
-import { UpgradeType } from './upgrades/Upgrade'
+import { parseBigInt } from './helper'
+import EnclosureUpgrade from './upgrades/additions/EnclosureUpgrade'
+import FarmUpgrade from './upgrades/additions/FarmUpgrade'
+import LandUpgrade from './upgrades/additions/LandUpgrade'
+import PlainUpgrade from './upgrades/additions/PlainUpgrade'
+import SheepUpgrade from './upgrades/additions/SheepUpgrade'
+import ValleyUpgrade from './upgrades/additions/ValleyUpgrade'
+import FertilizerUpgrade from './upgrades/multiplications/FertilizerUpgrade'
+import LawnmowerUpgrade from './upgrades/multiplications/LawnmowerUpgrade'
+import MedicationUpgrade from './upgrades/multiplications/MedicationUpgrade'
+import WaterUpgrade from './upgrades/multiplications/WaterUpgrade'
+import WeatUpgrade from './upgrades/multiplications/WeatUpgrade'
+import { UpgradeType, type UpgardeSave } from './upgrades/Upgrade'
 import type Upgrade from './upgrades/Upgrade'
 import WoolHandler from './WoolHandler'
 import { useUpgradeStore } from '@/stores/upgrades'
@@ -6,10 +18,23 @@ import { useUpgradeStore } from '@/stores/upgrades'
 class UpgradeHandler {
   private static _instance: UpgradeHandler
 
-  private constructor(upgrades?: Upgrade[]) {
-    this.upgrades = upgrades || this.upgrades
+  constructor() {
+    this.setUpgrades([
+      // Addition Upgrades
+      new SheepUpgrade(),
+      new EnclosureUpgrade(),
+      new FarmUpgrade(),
+      new LandUpgrade(),
+      new ValleyUpgrade(),
+      new PlainUpgrade(),
 
-    this.computeModificators()
+      // Multiplication Upgrades
+      new WaterUpgrade(),
+      new WeatUpgrade(),
+      new LawnmowerUpgrade(),
+      new FertilizerUpgrade(),
+      new MedicationUpgrade(),
+    ])
   }
 
   public static get instance() {
@@ -18,13 +43,14 @@ class UpgradeHandler {
 
   private upgrades: Upgrade[] = []
 
-  setUpgrades(upgrades: Upgrade[]) {
+  setUpgradeLevel(upgradeId: string, level: bigint) {
+    const upgrade = this.upgrades.find((upgrade) => upgrade.id === upgradeId)
+    if (!upgrade) return
+
+    upgrade.level = level
+
     const store = useUpgradeStore()
-
-    upgrades.sort((a, b) => (a.initialCost < b.initialCost ? -1 : 1))
-
-    this.upgrades = upgrades
-    store.setUpgrades(upgrades)
+    store.updateUpgrade(upgrade)
 
     this.computeModificators()
   }
@@ -43,6 +69,28 @@ class UpgradeHandler {
 
     const store = useUpgradeStore()
     store.updateUpgrade(upgrade)
+
+    this.computeModificators()
+  }
+
+  getSave(): UpgardeSave[] {
+    return this.upgrades.map((upgrade) => upgrade.getSave())
+  }
+
+  loadSave(upgrades: UpgardeSave[]) {
+    upgrades.forEach((upgrade) => {
+      const level = parseBigInt(upgrade.level)
+      this.setUpgradeLevel(upgrade.id, level)
+    })
+  }
+
+  private setUpgrades(upgrades: Upgrade[]) {
+    const store = useUpgradeStore()
+
+    upgrades.sort((a, b) => (a.initialCost < b.initialCost ? -1 : 1))
+
+    this.upgrades = upgrades
+    store.setUpgrades(upgrades)
 
     this.computeModificators()
   }

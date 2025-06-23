@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import BigIntDisplay from '@/components/helpers/BigIntDisplay.vue'
-import UpgradeHandler from '@/features/UpgradeHandler'
+import GameHandler from '@/features/GameHandler'
 import { useWoolCounterStore } from '@/stores/woolCounter'
 import { computed } from 'vue'
 
@@ -15,7 +15,7 @@ const canBeBought = computed(() => props.cost <= woolCounterStore.woolCount)
 
 function buyUpgrade() {
   if (canBeBought.value) {
-    UpgradeHandler.instance.tryBuyUpgrade(props.id)
+    GameHandler.instance.upgradeHandler.tryBuyUpgrade(props.id)
   }
 }
 </script>
