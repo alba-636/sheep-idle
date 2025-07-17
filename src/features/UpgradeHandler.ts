@@ -1,4 +1,5 @@
-import { parseBigInt } from './helper'
+import { parseBigInt } from './helpers/helper'
+import MagicNumber from './helpers/MagicNumber'
 import EnclosureUpgrade from './upgrades/additions/EnclosureUpgrade'
 import FarmUpgrade from './upgrades/additions/FarmUpgrade'
 import LandUpgrade from './upgrades/additions/LandUpgrade'
@@ -101,14 +102,15 @@ class UpgradeHandler {
 
     const additions = additionUpgrades
       .map((upgrade) => upgrade.getModificator())
-      .reduce((sum, a) => sum + a, BigInt(0))
+      .reduce((sum, a) => sum.addition(a), new MagicNumber(0))
 
     const multiplications = multiplicationUpgrades
       .map((upgrade) => upgrade.getModificator())
-      .reduce((sum, a) => sum + a, BigInt(0))
+      .reduce((sum, a) => sum.addition(a), new MagicNumber(0))
 
-    const modificators = additions * (multiplications || BigInt(1))
-    WoolHandler.instance.setProductionRate(modificators)
+    const modificators =
+      multiplications.getValue() === 0n ? additions : additions.multiplication(multiplications)
+    WoolHandler.instance.setProductionRate(modificators.getValue())
   }
 
   private getUpgradesByType(type: UpgradeType): Upgrade[] {

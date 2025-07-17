@@ -1,3 +1,5 @@
+import MagicNumber from '../helpers/MagicNumber'
+
 enum UpgradeType {
   Addition = 0,
   Multiplication = 1,
@@ -36,8 +38,16 @@ class Upgrade {
     this.level = level || this.level
   }
 
-  getModificator(): bigint {
-    return (BigInt(this.baseModificator * 1000) * this.level) / 1000n
+  getModificator(): MagicNumber {
+    if (this.level === 0n) return new MagicNumber(0)
+
+    const baseModificator = new MagicNumber(this.baseModificator)
+    const level = new MagicNumber(this.level)
+
+    if (this.type === UpgradeType.Addition) {
+      return baseModificator.multiplication(level)
+    }
+    return baseModificator.pow(this.level)
   }
 
   getCost(): bigint {
