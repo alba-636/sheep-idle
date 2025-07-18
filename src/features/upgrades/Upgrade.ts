@@ -16,7 +16,6 @@ class Upgrade {
   type: UpgradeType
   baseModificator: number
   initialCost: number
-  costMutiplicator: number
   level: bigint = BigInt(0)
 
   constructor(
@@ -24,8 +23,6 @@ class Upgrade {
     order: number,
     type: UpgradeType,
     baseModificator: number,
-    initialCost: number,
-    costMultiplicator: number,
     level?: bigint,
   ) {
     this.id = id
@@ -33,7 +30,6 @@ class Upgrade {
     this.type = type
     this.baseModificator = baseModificator
     this.initialCost = order === 0 ? 5 : 5 * 20 ** order
-    this.costMutiplicator = costMultiplicator
 
     this.level = level || this.level
   }
